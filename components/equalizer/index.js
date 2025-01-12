@@ -4,6 +4,7 @@ const getBaseUrl = () => {
     return new URL('.', import.meta.url).href;
 };
 
+
 const template = document.createElement("template");
 template.innerHTML = /*html*/ `
     <style>
