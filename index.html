@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Interface</title>
+
+    <!-- BabylonJS -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/butterchurn"></script>
+    <script src="https://cdn.jsdelivr.net/npm/butterchurn-presets"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+
+    <!-- Components -->
+    <script type="module" src="components/lecteuraudio/script.js"></script>
+    <script type="module" src="components/3d-visualisation/script.js"></script>
+    <script type="module" src="components/playlist/script.js"></script>
+    <script type="module" src="components/equalizer/index.js"></script>
+    <script type="module" src="components/audio-visualizer/audio-visualizer.js"></script>
+    <script type="module" src="components/audio-visualizer-3d/audio-visualizer-3d.js"></script>
+
+    <!-- CSS Styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h2>Audio Player Interface</h2>
+    </header>
+    <main class="grid-container">
+        <!-- Left Section -->
+        <section class="left-section">
+            <play-list></play-list>
+            <my-audio-player id="audio-player" src="..."></my-audio-player>
+            <div class="equalizer-container">
+                <my-equalizer id="my-equalizer"></my-equalizer>
+            </div>
+        </section>
+
+        <!-- 3D Music Visualization -->
+        <section class="visualisation-section">
+            <h2>3D Music Visualization</h2>
+            <visualisation-3d></visualisation-3d>
+        </section>
+
+        <!-- Visualizers Section (Normal + 3D) -->
+        <section class="visualizers-section">
+            <div class="visualizer-container">
+                <h2>Audio Visualizer</h2>
+                <audio-visualizer></audio-visualizer>
+            </div>
+            <div class="visualizer-container">
+                <h2>3D Audio Visualizer</h2>
+                <audio-visualizer-3d></audio-visualizer-3d>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2024 - Created with ❤️ by Hajar BAKAROU & Ayoub HOFR
+    </footer>
+</body>
+
+</html>

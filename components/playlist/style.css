@@ -1,0 +1,123 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* S'adapte à la largeur du conteneur parent */
+  height: 100%; /* S'adapte à la hauteur du conteneur parent */
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg, #121212, #1e1e1e);
+  border-radius: 12px;
+  padding: 1vw; /* Padding dynamique */
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  overflow: hidden; /* Évite les débordements horizontaux */
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #1db954;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw; /* Espacement entre les éléments */
+  max-height: calc(6 * min(1rem, 3vw)); /* Limite la hauteur dynamique */
+  overflow-y: auto; /* Scroll vertical activé uniquement si nécessaire */
+  scrollbar-width: thin; /* Scrollbar mince pour Firefox */
+  scrollbar-color: #1db954 transparent; /* Scrollbar colorée */
+}
+
+/* Scrollbar pour Chrome, Edge, Safari */
+ul::-webkit-scrollbar {
+  width: 8px; /* Largeur du scrollbar */
+}
+
+ul::-webkit-scrollbar-track {
+  background: transparent; /* Fond transparent */
+}
+
+ul::-webkit-scrollbar-thumb {
+  background: #1db954; /* Scrollbar verte (Spotify) */
+  border-radius: 4px; /* Coins arrondis */
+}
+
+ul::-webkit-scrollbar-thumb:hover {
+  background: #1ed760; /* Scrollbar plus claire au survol */
+}
+
+ul::-webkit-scrollbar-thumb:active {
+  background: #14843c; /* Couleur différente au clic */
+}
+
+li {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.3rem; /* Hauteur des éléments ajustée */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Transition fluide */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+li:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem; /* Taille de police cohérente */
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  width: auto; /* Ajuste à la taille du texte */
+  max-width: 90%; /* Limite la largeur pour laisser de l'espace */
+  padding: 0; /* Suppression des marges */
+}
+
+button:hover {
+  color: #1db954; /* Effet hover vert Spotify */
+}
+
+/* Media queries pour les écrans plus petits */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5vw; /* Police réduite */
+  }
+
+  li {
+    padding: 0.6vw 0.8vw; /* Réduction de l'espacement */
+  }
+
+  button {
+    font-size: 0.9rem; /* Police réduite */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 3.5vw; /* Police réduite davantage */
+  }
+
+  ul {
+    gap: 0.5rem; /* Réduction de l'espace entre les éléments */
+  }
+
+  li {
+    padding: 0.5rem; /* Réduction de la hauteur des éléments */
+  }
+
+  button {
+    font-size: 0.8rem; /* Police réduite davantage */
+  }
+}

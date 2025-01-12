@@ -1,0 +1,76 @@
+/* :host {
+    display: block;
+    max-width: 400px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    color: #fff;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  input[type="range"], progress {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  progress {
+    height: 10px;
+    background-color: #444;
+  }
+  
+  progress::-webkit-progress-value {
+    background-color: #0073e6;
+  }
+   */
+
+   /* General styles for 3D visualization */
+:host {
+  display: block;
+  width: 100%; /* Prend tout l'espace disponible en largeur */
+  height: 100%; /* Prend tout l'espace disponible en hauteur */
+  box-sizing: border-box;
+  position: relative; /* Important pour le placement interne */
+  background: linear-gradient(135deg, #1e1e1e, #282828);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden; /* Évite les débordements */
+}
+
+/* Style pour le canvas */
+canvas#render {
+  display: block;
+  width: 100%; /* Prend toute la largeur du conteneur */
+  height: 100%; /* Prend toute la hauteur du conteneur */
+  object-fit: contain; /* Garde les proportions de l'élément */
+  border-radius: 10px;
+}
+

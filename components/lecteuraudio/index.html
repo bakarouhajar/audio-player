@@ -1,0 +1,42 @@
+<div class="audio-controller">
+    <!-- Audio Element -->
+    <audio id="player" preload="auto" style="display: none;"></audio>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <span class="time-current" id="current-time">00:00</span>
+        <progress id="progress" value="0" max="100"></progress>
+        <span class="time-duration" id="duration">00:00</span>
+    </div>
+
+    <!-- Play/Pause/Stop -->
+    <div class="controls">
+        <button id="rewind">⏪</button>
+        <button id="play-pause" class="play-btn">▶️</button>
+        <button id="fast-forward">⏩</button>
+    </div>
+    
+
+    <!-- Volume and Stereo Controls -->
+    <div class="sliders">
+        <label for="volume">🔊</label>
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+        <label for="stereo">🔈</label>
+        <input type="range" id="stereo" min="-1" max="1" step="0.1" value="0">
+    </div>
+
+    <!-- Speed Control -->
+    <div class="speed-container">
+        <label for="speed">Playback Speed:</label>
+        <select id="speed">
+            <option value="0.25">0.25x</option>
+            <option value="0.5">0.5x</option>
+            <option value="0.75">0.75x</option>
+            <option value="1" selected>1x (Normal)</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+            <option value="1.75">1.75x</option>
+            <option value="2">2x</option>
+        </select>
+    </div>
+</div>
