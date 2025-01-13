@@ -8,63 +8,82 @@ class AudioVisualizer3D extends HTMLElement {
 
     connectedCallback() {
         this.initThree();
+
         const audioPlayer = document.querySelector("my-audio-player");
 
-        if (audioPlayer) {
-            this.audioContext = audioPlayer.getAudioContext();
-            this.analyser = audioPlayer.getanalyser();
+        if (!audioPlayer) {
+            console.error("my-audio-player not found.");
+            return;
+        }
+
+        audioPlayer.addEventListener("analyserReady", (event) => {
+            this.audioContext = event.detail.audioContext;
+            this.analyser = event.detail.analyser;
+
+            if (!this.analyser) {
+                console.error("AnalyserNode not found.");
+                return;
+            }
+
             this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
-            // Démarrer l'animation une fois que tout est initialisé
+            // Commence l'animation
             this.animate();
-        } else {
-            console.error("my-audio-player not found. Retrying...");
-            setTimeout(() => this.connectedCallback(), 500); // Réessaie après un délai
-        }
+        });
     }
 
     initThree() {
-        // Dimensions
-        this.width = this.offsetWidth || 600;
-        this.height = this.offsetHeight || 400;
+        const rect = this.getBoundingClientRect();
+        this.width = rect.width || 300;
+        this.height = rect.height || 300;
 
-        // Scène
         this.scene = new THREE.Scene();
-
-        // Caméra
         this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
         this.camera.position.set(0, 15, 25);
-        this.camera.lookAt(0, 0, 0);
 
-        // Rendu
         this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
         this.renderer.setSize(this.width, this.height);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
 
-        // Lumières
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-        const pointLight = new THREE.PointLight(0xff4400, 1, 100);
-        pointLight.position.set(10, 20, 10);
-        this.scene.add(ambientLight, pointLight);
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        this.scene.add(light);
+// Lumières
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Intensité augmentée
+this.scene.add(ambientLight);
 
-        // Grille 3D dynamique
+const spotLight = new THREE.SpotLight(0xffffff, 1.5); // Plus puissant
+spotLight.position.set(15, 40, 35);
+this.scene.add(spotLight);
+
         this.createWaveSphere();
+
+        window.addEventListener("resize", () => this.onResize());
+    }
+
+    onResize() {
+        const rect = this.getBoundingClientRect();
+        this.width = rect.width || 300;
+        this.height = rect.height || 300;
+
+        this.camera.aspect = this.width / this.height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.width, this.height);
     }
 
     createWaveSphere() {
-        const sphereRadius = 15; // Rayon de la sphère
+        const sphereRadius = 15;
         const segmentCount = 64;
 
-        // Géométrie en forme de sphère
         this.geometry = new THREE.SphereGeometry(sphereRadius, segmentCount, segmentCount);
 
-        // Matériau dynamique
         const material = new THREE.MeshPhongMaterial({
-            color: 0x00ff88,
-            emissive: 0x000000,
-            shininess: 50,
+            color: 0xff0000, // Rouge vif
+            emissive: 0x550000,
+            shininess: 80,
             wireframe: false,
         });
-
+        
         this.waveSphere = new THREE.Mesh(this.geometry, material);
         this.scene.add(this.waveSphere);
     }
@@ -84,7 +103,7 @@ class AudioVisualizer3D extends HTMLElement {
                 const frequencyIndex = Math.floor(i / 3) % this.dataArray.length;
                 const scaleFactor = this.dataArray[frequencyIndex] / 255;
 
-                vertices[i] = (vertices[i] / distance) * (15 + scaleFactor * 5); // Modifie le rayon
+                vertices[i] = (vertices[i] / distance) * (15 + scaleFactor * 5);
                 vertices[i + 1] = (vertices[i + 1] / distance) * (15 + scaleFactor * 5);
                 vertices[i + 2] = (vertices[i + 2] / distance) * (15 + scaleFactor * 5);
             }
@@ -92,10 +111,6 @@ class AudioVisualizer3D extends HTMLElement {
             this.waveSphere.geometry.attributes.position.needsUpdate = true;
         }
 
-        // Ajouter une légère rotation pour l'effet dynamique
-        this.waveSphere.rotation.y += 0.01;
-
-        // Rendu
         this.renderer.render(this.scene, this.camera);
     }
 }
